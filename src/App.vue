@@ -6,12 +6,11 @@
         <router-view/>
       </div>
     </main>
-    <footer/>
   </div>
 </template>
 
 <script>
-import HeaderPage from '@/components/HeaderPage.vue';
+import HeaderPage from '@/components/headerPage.vue';
 export default {
   components: {
     HeaderPage

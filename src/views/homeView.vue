@@ -13,20 +13,25 @@
     </section>
 </template>
 
-<script>
-    export default {
-        
-    }
-</script>
-
 <style lang="scss" scoped>
+@import "@/assets/_media.scss";
 .home-main{
-    padding: 106px 80px;
+    margin-top: 5rem;
     .home-main__inner{
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @include desktop{
+            flex-direction: column;
+            align-items: center;
+        }
         .home-main__text{
+            margin-right: 5rem;
+            @include desktop{
+                margin-right: 0;
+                margin-bottom: 5rem;
+                text-align: center;
+            }
             max-width: 500px;
             display: flex;
             flex-direction: column;
@@ -34,25 +39,40 @@
             h1{
                 margin-bottom: 40px;
                 color: var(--white);
+                text-align: center;
+                @media screen and (max-width: 480px) {
+                    font-size: 60px;
+                    line-height: 64px;
+                }
             }
             h3{
                 color: var(--gray);
+                @media screen and (max-width: 480px) {
+                    font-size: 24px;
+                    line-height: 36px;
+                }
             }
         }
         .home-main__img{
+            width: 55%;
+            @include desktop{
+                width: 100%;
+            }
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             .home-main__background{
                 position: absolute;
-                width: 130%;
-                left: 0;
-                top: 0;
-                z-index: 0;
-                aspect-ratio: 1;
+                width: 110%;
+                left: -4%;
+                top: -7%;
             }
             .home-main__objects{
-                width: 100%;
+                position: relative;
+                top: 80px;
+                width: 85%;
                 z-index: 20;
-                
             }
         }
     }

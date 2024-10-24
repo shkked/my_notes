@@ -1,8 +1,9 @@
 <template>
-    <button class="button">
+    <button type="button" class="button button-close">
         <div class="button-inner">
-            <img src="icons/login.svg" alt="arrow-icon">
-            <p class="text-normal">{{ title }}</p>
+            <!-- <img src="icons/login.svg" alt="arrow-icon">
+            <p class="text-normal">{{ title }}</p> -->
+            <slot/>
         </div>
     </button>
 </template>
@@ -11,20 +12,27 @@
     export default {
         props: {
             title: String
-        },
-        data(){
-            return {
-
-            }
         }
     }
 </script>
 
 <style lang="scss">
-.button{
+.button-close{
     border-radius: 32px;
-    border: 1px solid black;
+}
+.button{
+    border: none;
     background-color: var(--green-light);
+    &:hover{
+        cursor: pointer;
+        background-color: var(--green-middle);
+    }
+    &:active{
+        background-color: var(--green-dark);
+    }
+    &[disabled]{
+        background-color: var(--gray);
+    }
     .button-inner{
         display: flex;
         align-items: center;

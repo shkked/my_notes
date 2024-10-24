@@ -1,17 +1,22 @@
 <template>
     <header class="header">
         <div class="container">
-            <img class="header-logo" src="/images/logo4x.png" alt="">
-            <my-btn :title="'Вход'"/>
+            <a href="/">
+                <img class="header-logo" src="/images/logo4x.png" alt="">
+            </a>
+                <btnPage @click="document.getElementById('overlay-reg').showModal()">
+                    <img src="icons/login.svg" alt="arrow-icon">
+                    <p class="text-normal">Вход</p>
+                </btnPage>
         </div>
     </header>
     </template>
 
 <script>
-import btn from '@/components/btn.vue';
+import btnPage from '@/components/btnPage.vue';
     export default {
         components: {
-            'my-btn': btn
+            btnPage
         }
     }
 </script>
@@ -25,6 +30,9 @@ import btn from '@/components/btn.vue';
         height: 136px;
         .header-logo{
             width: 218px;
+            @media screen and (max-width: 450px) {
+                width: 90%;
+            }
         }
     }
 }

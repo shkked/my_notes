@@ -1,19 +1,23 @@
 <template>
   <div id="app">
-    <HeaderPage/>
+    <headerPage/>
     <main>
       <div class="container">
         <router-view/>
+        <modalAuth/>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import HeaderPage from '@/components/headerPage.vue';
+import headerPage from '@/components/headerPage.vue';
+// import modalReg from '@/components/modals/modalReg.vue';
+import modalAuth from '@/components/modals/modalAuth.vue';
 export default {
   components: {
-    HeaderPage
+    headerPage, 
+    modalAuth
   },
   data(){
     return {
@@ -24,5 +28,5 @@ export default {
 </script>
 
 <style lang="scss">
-  
+
 </style>

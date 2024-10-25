@@ -1,20 +1,9 @@
 <template>
-        <input 
-        name="nameInput"
-        class="text-normal input-form__input"
-        :type="typeInput" 
-        required 
-        :placeholder="placeholder" 
-        v-model="changeValue">
+    <input class="text-normal input-form__input" required v-model="changeValue">
 </template>
 
 <script>
     export default {
-        props: {
-            nameInput: String,
-            typeInput: String, 
-            placeholder: String,
-        },
         data() {
             return {
                 value: ''
@@ -41,8 +30,8 @@
     padding-left: 30px;
     outline: unset;
     margin-bottom: 24px;
-    border: unset;
-    &:active{
+    border: 1px solid;
+    &:focus{
         border: 1px solid;
         border-color: var(--green-light);
     }

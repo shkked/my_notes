@@ -39,7 +39,9 @@
             h1{
                 margin-bottom: 40px;
                 color: var(--white);
-                text-align: center;
+                @include desktop{
+                    text-align: center;
+                }
                 @media screen and (max-width: 480px) {
                     font-size: 60px;
                     line-height: 64px;

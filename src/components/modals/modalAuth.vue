@@ -1,46 +1,52 @@
 <template>
-    <div>
         <dialog 
         class="overlay overlay-auth" 
-        ref="overlay-auth"
+        ref="overlay_auth"
+        id="overlay_auth"
         >
-        <div class="overlay__inner">
+        <div class="overlay__inner h-100">
             <div class="overlay-header">
-                <btnRound/>
+                <btnRound @click="closeModal"/>
             </div>
-            <div class="overlay-body">
+            <div class="overlay-body h-100">
                 <h2 class="h2">Вход в ваш аккаунт</h2>
-                <section class="overlay-body__inner">
-                   <form class="overlay__input-form w-100" method="POST" action="#">
-                        <label for="" class="text-small">Email</label>
+                <section class="overlay-body__inner h-100">
+                   <form class="overlay__input-form h-100 w-100" method="POST" action="#">
+                        <label for="email" class="text-small">Email</label>
                         <inputForm 
-                        nameInput="email"
-                        typeInput="email" 
+                        name="email"
+                        type="email"
                         placeholder="Введите значение"
-                        @changeInput="valueW"
                         />
-                        <label for="" class="text-small">Пароль</label>
+                        <label for="pass" class="text-small">Пароль</label>
                         <inputForm 
-                        nameInput="pass"
-                        typeInput="pass" 
+                        name="pass"
+                        type="pass" 
                         placeholder="Введите пароль"
-                        @changeInput="valueW"
                         />
-                   </form>
-                   <div class="overlay-body__bottom w-100">
-                    <div class="overlay-body__links">
-                        <p class="text-small">У вас нет аккаунта?</p>
-                        <linkPage/>
-                    </div>
-                    <btnPage>
-                        <p class="text-normal">Войти</p>
-                    </btnPage>
-                   </div>
+                        <div class="overlay-body__bottom w-100">
+                            <div class="overlay-body__bottom-inner w-100">
+                                <div class="overlay-body__links">
+                                    <p class="text-small">У вас нет аккаунта?</p>
+                                    <linkPage>Зарегистрируйтесь</linkPage>
+                                </div>
+                                <btnPage 
+                                @click="sendQuery" 
+                                class="overlay-body__bottom-btn"
+                                type="submit"
+                                >
+                                    <p class="text-normal">Войти</p>
+                                </btnPage>
+                            </div>
+                            <div v-if="error" class="overlay-form__error text-small">
+                                {{ error }}
+                            </div>
+                        </div>
+                    </form>
                 </section>
             </div>
         </div>
     </dialog>
-    </div>
 </template>
 
 <script>
@@ -52,18 +58,52 @@ import inputForm from '@/components/inputForm.vue';
         components: {btnRound, inputForm, btnPage, linkPage},
         data(){
             return {
-
+                email: '',
+                pass: '',
+                error: ''
             }
         },
         methods: {
-            valueW(v){
-                console.log(v)
+            closeModal(){
+                this.$refs.overlay_auth.close();
+                document.getElementById('overlay').style.display = 'none';
+                document.querySelector('html').style.overflow = 'auto';
+            },
+            async sendQuery(){
+
             }
         }
     }
 </script>
 
+
+
 <style lang="scss">
+@import '@/assets/_media.scss';
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+.overlay-auth{
+    height: 90%;
+    width: 50%;
+    @include desktop-above{
+        height: 70%;
+    }
+    @include desktop{
+        width: 90%;
+    }
+    @include mobile{
+        width: 100%;
+        height: 100%;
+    }
+}
 .overlay{
     border-radius: 40px;
     background-color: var(--dark-middle);
@@ -72,15 +112,14 @@ import inputForm from '@/components/inputForm.vue';
     max-height: 100%;
     display: block;
     transition: all 0.3s linear;
-    //visibility: hidden;
+    visibility: hidden;
     border: unset;
     outline: unset;
     top:50%;
     left:50%;
     transform:translate(-50%, -50%);
-    //opacity: 0;
+    opacity: 0;
     &[open]{
-        transform: scale(1);
         opacity: 1;
         visibility: visible;
     }
@@ -89,10 +128,12 @@ import inputForm from '@/components/inputForm.vue';
         max-width: 100%;
         max-height: 100%;
     }
-    
     .overlay__inner{
         position: relative;
         padding: 80px;
+        @include mobile{
+            padding: 90px 16px;
+        }
         .overlay-header{
             position: absolute;
             right: 15px;
@@ -102,6 +143,10 @@ import inputForm from '@/components/inputForm.vue';
             h2{
                 color: var(--white);
                 margin-bottom: 40px;
+                @include mobile{
+                    font-size: 32px;
+                    line-height: 36px;
+                }
             }
             .overlay-body__inner{
                 display: flex;
@@ -110,6 +155,12 @@ import inputForm from '@/components/inputForm.vue';
                 .overlay__input-form{
                     display: flex;
                     flex-direction: column;
+                    .input-form__input{
+                        margin-bottom: 24px;
+                        &:last-child{
+                            margin-bottom: 0;
+                        }
+                    }
                     label{
                         color: var(--gray);
                         margin-bottom: 8px;
@@ -117,8 +168,55 @@ import inputForm from '@/components/inputForm.vue';
                     }
                 }
                 .overlay-body__bottom{
+                    margin-top: 40px;
                     display: flex;
-                    justify-content: space-between;
+                    flex-direction: column;
+                    .overlay-body__bottom-inner{
+                        display: flex;
+                        justify-content: space-between;
+                        @include mobile{
+                            flex-direction: column;
+                            justify-content: unset;
+                        }
+                        .overlay-body__bottom-btn{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            @include mobile{
+                                order: 10;
+                                width: 100%;
+                            }
+                        }
+                    }
+                    .overlay-form__error{
+                        background: rgba(255, 116, 97, 0.1);
+                        color: rgba(255, 116, 97, 1);
+                        padding: 8px 20px;
+                        border-radius: 24px;
+                        margin-top: 20px;
+                    }
+                    .overlay-body__links{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        @include desktop-above{
+                            flex-direction: row;
+                        }
+                        @include mobile{
+                            flex-direction: row;
+                            justify-content: space-between;
+                        }
+                        p{
+                            color: var(--gray);
+                            margin-right: 8px;
+                        }
+                        p, a{
+                            @include mobile{
+                                font-size: 14px;
+                                line-height: 24px;
+                            }
+                        }
+                    }
                 }
             }
         }

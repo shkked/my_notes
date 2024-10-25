@@ -5,6 +5,7 @@
       <div class="container">
         <router-view/>
         <modalAuth/>
+        <div id="overlay"></div>
       </div>
     </main>
   </div>

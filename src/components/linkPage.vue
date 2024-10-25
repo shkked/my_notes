@@ -1,15 +1,18 @@
 <template>
-    <div>
-
-    </div>
+    <a class="text-small link-page" id="link-page">
+        <slot/>
+    </a>
 </template>
 
-<script>
-    export default {
-        
+<style lang="scss">
+#link-page{
+    font-weight: 700;
+}
+.link-page{
+    color: var(--green-light);
+    cursor: pointer;
+    &:hover{
+        color: var(--white);
     }
-</script>
-
-<style lang="scss" scoped>
-
+}
 </style>

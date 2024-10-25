@@ -1,8 +1,8 @@
 .container{
     max-width: var(--container-width);
-    margin-inline: auto;
+    margin-inline: auto;;
 }
-html, body{
+html, body, .container, main{
     height: 100%;
 }
 body{

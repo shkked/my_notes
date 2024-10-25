@@ -1,11 +1,11 @@
 <template>
     <header class="header">
-        <div class="container">
+        <div ref="qwewq" class="container">
             <a href="/">
                 <img class="header-logo" src="/images/logo4x.png" alt="">
             </a>
-                <btnPage @click="document.getElementById('overlay-reg').showModal()">
-                    <img src="icons/login.svg" alt="arrow-icon">
+                <btnPage @click="openModal">
+                    <img class="button__img" src="icons/login.svg" alt="arrow-icon">
                     <p class="text-normal">Вход</p>
                 </btnPage>
         </div>
@@ -17,6 +17,13 @@ import btnPage from '@/components/btnPage.vue';
     export default {
         components: {
             btnPage
+        },
+        methods: {
+            openModal(){
+                document.getElementById('overlay_auth').show()
+                document.getElementById('overlay').style.display = 'block';
+                document.querySelector('html').style.overflow = 'hidden';
+            }
         }
     }
 </script>

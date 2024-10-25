@@ -1,28 +1,28 @@
 <template>
-    <button type="button" class="button button-close">
-        <div class="button-inner">
-            <!-- <img src="icons/login.svg" alt="arrow-icon">
-            <p class="text-normal">{{ title }}</p> -->
-            <slot/>
-        </div>
-    </button>
+    <button type="button" class="button button-page" @click="handleClick($event)"><slot/></button>
 </template>
 
 <script>
-    export default {
-        props: {
-            title: String
+export default {
+    methods: {
+        handleClick(event) {
+            this.$emit('click', event);
         }
     }
+}
 </script>
 
 <style lang="scss">
-.button-close{
+.button-page{
     border-radius: 32px;
 }
 .button{
     border: none;
     background-color: var(--green-light);
+    display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 24px;
     &:hover{
         cursor: pointer;
         background-color: var(--green-middle);
@@ -33,12 +33,7 @@
     &[disabled]{
         background-color: var(--gray);
     }
-    .button-inner{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 24px;
-        img{
+        .button__img{
             width: 32px;
             height: 32px;
             margin-right: 12px;
@@ -46,6 +41,5 @@
         p{
             color: var(--white);
         }
-    }
 }
 </style>

@@ -1,15 +1,15 @@
 <template>
-        <div 
+        <div
         class="overlay overlay-auth" 
-        ref="overlay_auth"
-        id="overlay_auth"
+        ref="overlay_auth "
+        id="overlay_reg "
         >
         <div class="overlay__inner h-100">
             <div class="overlay-header">
                 <btnRoundPage @click="closeModal"/>
             </div>
             <div class="overlay-body h-100">
-                <h2 class="h2">Вход в ваш аккаунт</h2>
+                <h2 class="h2">Регистрация</h2>
                 <section class="overlay-body__inner h-100">
                    <form @submit.prevent="sendQuery" class="overlay__input-form h-100 w-100">
                         <label for="email" class="text-small">Email</label>
@@ -26,18 +26,25 @@
                         type="password" 
                         placeholder="Введите пароль"
                         />
+                        <label for="passRepeat" class="text-small">Пароль ещё раз</label>
+                        <inputForm 
+                        @changeInput="passRep = $event"
+                        name="passRepeat"
+                        type="password" 
+                        placeholder="Пароль ещё раз"
+                        />
                         <div class="overlay-body__bottom w-100">
                             <div class="overlay-body__bottom-inner w-100">
                                 <div class="overlay-body__links">
-                                    <p class="text-small">У вас нет аккаунта?</p>
-                                    <linkPage @click="openModalReg">Зарегистрируйтесь</linkPage>
+                                    <p class="text-small">У вас есть аккаунт?</p>
+                                    <linkPage @click="openModalAuth">Войдите</linkPage>
                                 </div>
                                 <btnPage 
                                 @click="sendQuery" 
                                 class="overlay-body__bottom-btn"
                                 type="submit"
                                 >
-                                    <p class="text-normal">Войти</p>
+                                    <p class="text-normal">Зарегистрироваться</p>
                                 </btnPage>
                             </div>
                             <div v-if="error" class="overlay-form__error text-small">
@@ -59,26 +66,29 @@ import { useModalStore } from '@/stores/modals';
             return {
                 email: '',
                 pass: '',
-                error: ''
+                error: '',
+                passRep: ''
             }
         },
         methods: {
-            openModalReg(){
-                useModalStore().setModalAuth(false);
-                useModalStore().setModalReg(true);
+            openModalAuth(){
+                useModalStore().setModalAuth(true);
+                useModalStore().setModalReg(false);  
             },
             closeModal(){
-                useModalStore().setModalAuth(false);
-                // document.querySelector('html').style.overflow = 'auto';
+                useModalStore().setModalReg(false);
             },
             async sendQuery(){
-                if(this.email.length > 2 && this.pass){
+                if(this.email.length > 2 && this.pass.length > 4 && this.passRep === this.pass){
                     try {
-                        const res = await axios.post("https://dist.nd.ru/api/auth", {
-                            email: this.email,
-                            pass: this.pass
+                        const res = await axios.post("https://dist.nd.ru/api/reg", {
+                            params: {
+                                email: this.email,
+                                password: this.pass,
+                                confirm_password: this.pass
+                        }
                         })
-                        console.log(res)
+                        console.log('res')
                     } catch (e) {
                         console.error(e)
                     }
@@ -90,53 +100,10 @@ import { useModalStore } from '@/stores/modals';
 
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/_media.scss';
-.overlay-auth{
-    //height: 90%;
-    width: 50%;
-    height: 672px;
-    @include desktop-above{
-        //height: 70%;
-    }
-    @include desktop{
-        width: 90%;
-    }
-    @include mobile{
-        width: 100%;
-        height: 100%;
-    }
-}
 .overlay{
-    overflow: auto;
-    position: fixed;
-    border-radius: 40px;
-    background-color: var(--dark-middle);
-    z-index: 1000;
-    max-width: 100%;
-    //max-height: 100%;
-    display: block;
-    transition: all 0.3s linear;
-    border: unset;
-    outline: unset;
-    top: 50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    // padding: 0 10px;
     .overlay__inner{
-        position: relative;
-        padding: 56px;
-        @include desktop-above{
-            padding: 80px;
-        }
-        @include mobile{
-            padding: 90px 16px;
-        }
-        .overlay-header{
-            position: absolute;
-            right: 15px;
-            top: 15px;
-        }
         .overlay-body{
             h2{
                 color: var(--white);

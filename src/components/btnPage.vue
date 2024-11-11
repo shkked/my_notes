@@ -1,18 +1,8 @@
 <template>
-    <button class="button button-page" @click="handleClick($event)">
+    <button class="button button-page">
         <slot/>
     </button>
 </template>
-
-<script>
-export default {
-    methods: {
-        handleClick(event) {
-            this.$emit('click', event);
-        }
-    }
-}
-</script>
 
 <style lang="scss">
 .button-page{

@@ -1,19 +1,26 @@
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
-import vue2 from '@vitejs/plugin-vue2'
-import vue2Jsx from '@vitejs/plugin-vue2-jsx'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueDevTools from 'vite-plugin-vue-devtools'
+import Components from 'unplugin-vue-components/vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue2(),
-    vue2Jsx(),
+    vue(),
+    vueJsx(),
+    vueDevTools(),
+    Components({
+      dirs: ['src/components'],
+      extensions: ['vue'],
+      deep: true
+    }),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+    },
   },
-  css: ['./src/assets/main.scss'],
+  css: ["@/assets/main.scss"]
 })

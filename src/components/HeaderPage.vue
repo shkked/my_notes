@@ -5,7 +5,7 @@
                 <img class="header-logo" src="/images/logo4x.png" alt="">
             </a>
                 <btnPage @click="openModal">
-                    <img class="button__img" src="icons/login.svg" alt="arrow-icon">
+                    <img class="button__img" src="/icons/login.svg" alt="arrow-icon">
                     <p class="text-normal">Вход</p>
                 </btnPage>
         </div>
@@ -13,16 +13,11 @@
     </template>
 
 <script>
-import btnPage from '@/components/btnPage.vue';
+import { useModalStore } from '@/stores/modals';
     export default {
-        components: {
-            btnPage
-        },
         methods: {
             openModal(){
-                document.getElementById('overlay_auth').show()
-                document.getElementById('overlay').style.display = 'block';
-                document.querySelector('html').style.overflow = 'hidden';
+                useModalStore().setModalAuth(true);
             }
         }
     }

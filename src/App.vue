@@ -4,10 +4,10 @@
     <main>
       <div class="container">
         <router-view/>
-        <modalAuth/>
         <div id="overlay"></div>
       </div>
     </main>
+    <modalAuth/>
   </div>
 </template>
 

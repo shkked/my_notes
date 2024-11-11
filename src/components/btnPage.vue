@@ -1,5 +1,7 @@
 <template>
-    <button type="button" class="button button-page" @click="handleClick($event)"><slot/></button>
+    <button class="button button-page" @click="handleClick($event)">
+        <slot/>
+    </button>
 </template>
 
 <script>

@@ -11,7 +11,7 @@
             <div class="overlay-body h-100">
                 <h2 class="h2">Вход в ваш аккаунт</h2>
                 <section class="overlay-body__inner h-100">
-                   <form class="overlay__input-form h-100 w-100" method="POST" action="#">
+                   <form class="overlay__input-form h-100 w-100">
                         <label for="email" class="text-small">Email</label>
                         <inputForm 
                         name="email"
@@ -91,10 +91,11 @@ import inputForm from '@/components/inputForm.vue';
     z-index: 100;
 }
 .overlay-auth{
-    height: 90%;
+    //height: 90%;
     width: 50%;
+    height: 672px;
     @include desktop-above{
-        height: 70%;
+        //height: 70%;
     }
     @include desktop{
         width: 90%;
@@ -105,11 +106,12 @@ import inputForm from '@/components/inputForm.vue';
     }
 }
 .overlay{
+    //overflow: auto;
     border-radius: 40px;
     background-color: var(--dark-middle);
     z-index: 1000;
     max-width: 100%;
-    max-height: 100%;
+    //max-height: 100%;
     display: block;
     transition: all 0.3s linear;
     visibility: hidden;
@@ -130,7 +132,10 @@ import inputForm from '@/components/inputForm.vue';
     }
     .overlay__inner{
         position: relative;
-        padding: 80px;
+        padding: 56px;
+        @include desktop-above{
+            padding: 80px;
+        }
         @include mobile{
             padding: 90px 16px;
         }

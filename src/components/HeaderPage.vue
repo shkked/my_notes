@@ -12,15 +12,13 @@
     </header>
     </template>
 
-<script>
+<script setup>
 import { useModalStore } from '@/stores/modals';
-    export default {
-        methods: {
-            openModal(){
-                useModalStore().setModalAuth(true);
-            }
-        }
-    }
+
+const { setModalAuth } = useModalStore();
+const openModal = () => {
+    setModalAuth(true);
+}
 </script>
 
 <style lang="scss" scoped>

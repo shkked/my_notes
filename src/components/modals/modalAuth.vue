@@ -14,23 +14,23 @@
                    <form @submit.prevent="sendQuery" class="overlay__input-form h-100 w-100">
                         <label for="email" class="text-small">Email</label>
                         <inputForm 
-                        @changeInput="email = $event"
-                        name="email"
-                        type="email"
-                        placeholder="Введите значение"
+                            @changeInput="email = $event"
+                            name="email"
+                            type="email"
+                            placeholder="Введите значение"
                         />
                         <label for="pass" class="text-small">Пароль</label>
                         <inputForm 
-                        @changeInput="pass = $event"
-                        name="pass"
-                        type="password" 
-                        placeholder="Введите пароль"
+                            @changeInput="pass = $event"
+                            name="pass"
+                            type="password" 
+                            placeholder="Введите пароль"
                         />
                         <div class="overlay-body__bottom w-100">
                             <div class="overlay-body__bottom-inner w-100">
                                 <div class="overlay-body__links">
                                     <p class="text-small">У вас нет аккаунта?</p>
-                                    <linkPage @click="openModalReg">Зарегистрируйтесь</linkPage>
+                                    <linkPage @click="openModalAuth">Зарегистрируйтесь</linkPage>
                                 </div>
                                 <btnPage 
                                 @click="sendQuery" 
@@ -51,39 +51,30 @@
     </div>
 </template>
 
-<script>
-import axios from 'axios';
+<script setup>
 import { useModalStore } from '@/stores/modals';
-    export default {
-        data(){
-            return {
-                email: '',
-                pass: '',
-                error: ''
-            }
-        },
-        methods: {
-            openModalReg(){
-                useModalStore().setModalAuth(false);
-                useModalStore().setModalReg(true);
-            },
-            closeModal(){
-                useModalStore().setModalAuth(false);
-                // document.querySelector('html').style.overflow = 'auto';
-            },
-            async sendQuery(){
-                if(this.email.length > 2 && this.pass){
-                    try {
-                        const res = await axios.post("https://dist.nd.ru/api/auth", {
-                            email: this.email,
-                            pass: this.pass
-                        })
-                        console.log(res)
-                    } catch (e) {
-                        console.error(e)
-                    }
-                }
-            }
+import { ref } from 'vue';
+
+const email = ref(null)
+const pass = ref(null)    
+const error = ref(null)
+const { setModalAuth, setModalReg } = useModalStore();
+const openModalAuth = () => {
+    setModalAuth(true);
+    setModalReg(false);  
+}
+
+const closeModal = () => {
+    setModalReg(false);
+}
+
+const sendQuery = async () => {
+    try {
+        if(email?.value?.length > 2 && pass?.value?.length > 4){
+        
+        }
+        } catch (e) {
+            console.error(e)
         }
     }
 </script>

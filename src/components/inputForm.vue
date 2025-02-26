@@ -2,24 +2,18 @@
     <input class="text-normal input-form__input" required v-model="changeValue">
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
-                value: ''
-            }
+<script setup>
+import { ref, computed } from 'vue'
+
+const valueInput = ref(null)
+const changeValue = computed({
+        get(){
+            return valueInput.value
         },
-        computed: {
-            changeValue: {
-                get(){
-                    return this.value
-                },
-                set(changeValue) {
-                    this.$emit('changeInput', changeValue)
-                }
-            }
+        set(changeValue) {
+            this.$emit('changeInput', changeValue)
         }
-    }
+})
 </script>
 
 <style lang="scss" scoped>

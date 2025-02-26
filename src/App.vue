@@ -15,26 +15,21 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useModalStore } from '@/stores/modals';
-import { mapState } from 'pinia';
-export default {
-  computed: {
-    ...mapState(useModalStore, ['getModalAuth', 'getModalReg'])
-  },
-  watch: {
-    getModalAuth(){
-      if(this.getModalAuth){
+import { watch } from 'vue'
+
+const { getModalAuth, getModalReg, setModalAuth, setModalReg } = useModalStore();
+const modalData = getModalAuth || getModalReg;
+
+watch(modalData, () => {
+      if(modalData){
         // document.querySelector('html').style.overflow = 'hidden';
       }
-    }
-  },
-  methods: {
-    closeModal(){
-      useModalStore().setModalReg(false);
-      useModalStore().setModalAuth(false);
-    }
-  }
+})
+const closeModal = () => {
+    setModalAuth(false);
+    setModalReg(false);
 }
 </script>
 

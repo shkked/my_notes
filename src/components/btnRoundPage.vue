@@ -4,13 +4,9 @@
     </button>
 </template>
 
-<script>
-export default {
-    methods: {
-        handleClick(event) {
-            this.$emit('click', event);
-        }
-    }
+<script setup>
+const handleClick = (event) => {
+    this.$emit('click', event);
 }
 </script>
 

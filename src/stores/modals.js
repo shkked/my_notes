@@ -1,20 +1,21 @@
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 
-export const useModalStore = defineStore('modals', {
-    state: () => ({ 
-        modalAuth: false,
-        modalReg: false
-    }),
-    getters: {
-        getModalAuth: (state) => state.modalAuth,
-        getModalReg: (state) => state.modalReg
-    },
-    actions: {
-        setModalAuth(value) {
-            this.modalAuth = value
-        },
-        setModalReg(value) {
-            this.modalReg = value
-        },
+export const useModalStore = defineStore('modals', () => {
+    // State
+    const modalAuth = ref(false)
+    const modalReg = ref(false)
+
+    // Getters
+    const getModalAuth = computed(() => modalAuth)
+    const getModalReg = computed(() => modalReg)
+
+    // Actions
+    const setModalAuth = (value) => {
+        modalAuth.value = value
     }
+    const setModalReg = (value) => {
+        modalReg.value = value
+    }
+    return { modalAuth, modalReg, setModalAuth, setModalReg, getModalAuth, getModalReg }
 })

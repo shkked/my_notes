@@ -37,12 +37,12 @@
                             <div class="overlay-body__bottom-inner w-100">
                                 <div class="overlay-body__links">
                                     <p class="text-small">У вас есть аккаунт?</p>
-                                    <linkPage @click="openModalAuth">Войдите</linkPage>
+                                    <linkPage @click="openModalReg">Войдите</linkPage>
                                 </div>
                                 <btnPage 
-                                @click="sendQuery" 
-                                class="overlay-body__bottom-btn"
-                                type="submit"
+                                    @click="sendQuery" 
+                                    class="overlay-body__bottom-btn"
+                                    type="submit"
                                 >
                                     <p class="text-normal">Зарегистрироваться</p>
                                 </btnPage>
@@ -58,44 +58,33 @@
     </div>
 </template>
 
-<script>
-import axios from 'axios';
+<script setup>
 import { useModalStore } from '@/stores/modals';
-    export default {
-        data(){
-            return {
-                email: '',
-                pass: '',
-                error: '',
-                passRep: ''
+import { ref } from 'vue';
+
+const email = ref(null)
+const pass = ref(null)    
+const passRep = ref(null)
+const error = ref(null)
+const { setModalAuth, setModalReg } = useModalStore();
+const openModalReg = () => {
+    setModalAuth(true);
+    setModalReg(false);  
+}
+
+const closeModal = () => {
+    setModalReg(false);
+}
+
+const sendQuery = async () => {
+    try {
+            if(email?.value?.length > 2 && pass?.value?.length > 4 && passRep?.value === pass?.value){
+                   
             }
-        },
-        methods: {
-            openModalAuth(){
-                useModalStore().setModalAuth(true);
-                useModalStore().setModalReg(false);  
-            },
-            closeModal(){
-                useModalStore().setModalReg(false);
-            },
-            async sendQuery(){
-                if(this.email.length > 2 && this.pass.length > 4 && this.passRep === this.pass){
-                    try {
-                        const res = await axios.post("https://dist.nd.ru/api/reg", {
-                            params: {
-                                email: this.email,
-                                password: this.pass,
-                                confirm_password: this.pass
-                        }
-                        })
-                        console.log('res')
-                    } catch (e) {
-                        console.error(e)
-                    }
-                }
+            } catch (e) {
+                console.error(e)
             }
         }
-    }
 </script>
 
 
